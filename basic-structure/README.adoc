@@ -1,0 +1,2 @@
+オフィシャルドキュメント http://www.gwtproject.org/gettingstarted.html[Getting Started]
+に沿って `webAppCreator` コマンドにより生成したプロジェクト雛形です。
