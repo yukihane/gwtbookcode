@@ -13,8 +13,10 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
+import java.util.ArrayList;
 
 public class App implements EntryPoint {
 
@@ -22,6 +24,10 @@ public class App implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
+        final TextArea field = new TextArea();
+        field.setWidth("500px");
+        field.setHeight("100px");
+
         final ListDataProvider<Student> studentProvider = new ListDataProvider<>();
 
         final Student student = new Student("初期 太郎", 170, Room.A);
@@ -41,13 +47,17 @@ public class App implements EntryPoint {
 
         final Button sendButton = new Button("送信");
         sendButton.addClickHandler(event -> {
-            final CalcRequestData input = null;
+
+            final CalcRequestData input = new CalcRequestData();
+            input.setStudents(new ArrayList<>(studentProvider.getList()));
 
             calcService.calculate(input, new AsyncCallback<CalcResult>() {
 
                 @Override
                 public void onSuccess(final CalcResult result) {
                     GWT.log("onSuccess: " + result);
+
+                    field.setText(createResultPanel(result));
                 }
 
                 @Override
@@ -66,7 +76,19 @@ public class App implements EntryPoint {
 
         vpanel.add(fpanel);
 
+        vpanel.add(field);
+
         RootPanel.get().add(vpanel);
 
+    }
+
+    private String createResultPanel(final CalcResult result) {
+
+        final StringBuilder b = new StringBuilder();
+        result.getAverages().entrySet().stream().sorted((e1, e2) -> e1.getKey().compareTo(e2.getKey())).forEach(e -> {
+            b.append(e.getKey().getDisplayName() + " の身長平均値は " + e.getValue() + " です。\n");
+        });
+        b.append("最も高い身長の人は " + result.getHighest().getName() + " さんです。");
+        return b.toString();
     }
 }
