@@ -30,6 +30,9 @@ public class StudentTable extends CellTable<Student> {
                 return e == null ? "" : e;
             }
         };
+        nameCol.setFieldUpdater((index, object, value) -> {
+            object.setName(value);
+        });
         setColumnWidth(nameCol, 50, Unit.PCT);
         addColumn(nameCol, "名前");
 
@@ -40,6 +43,14 @@ public class StudentTable extends CellTable<Student> {
                 return h == 0.0 ? "" : Objects.toString(object.getHeight());
             }
         };
+        heightCol.setFieldUpdater((index, object, value) -> {
+            try {
+                final Double v = Double.valueOf(value);
+                object.setHeight(v);
+            } catch (final NumberFormatException e) {
+                // エラー処理は省略
+            }
+        });
         setColumnWidth(heightCol, 100, Unit.PX);
         addColumn(heightCol, "身長");
 
@@ -54,6 +65,16 @@ public class StudentTable extends CellTable<Student> {
                 return r.getDisplayName();
             }
         };
+        roomCol.setFieldUpdater((index, object, value) -> {
+            for (final Room e : Room.values()) {
+                if (e.getDisplayName().equals(value)) {
+                    object.setRoom(e);
+                    return;
+                }
+            }
+            object.setRoom(Room.A);
+            return;
+        });
         setColumnWidth(roomCol, 100, Unit.PX);
         addColumn(roomCol, "学級クラス");
     }

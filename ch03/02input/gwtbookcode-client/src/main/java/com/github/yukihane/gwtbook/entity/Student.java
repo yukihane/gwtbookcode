@@ -12,6 +12,9 @@ public class Student {
     private Room room;
 
     public Student() {
+        name = "";
+        height = 0.0;
+        room = Room.A;
     }
 
     public Student(final String name, final double height, final Room room) {
@@ -40,7 +43,7 @@ public class Student {
         return room;
     }
 
-    public void setClassName(final Room className) {
-        this.room = className;
+    public void setRoom(final Room room) {
+        this.room = room;
     }
 }
