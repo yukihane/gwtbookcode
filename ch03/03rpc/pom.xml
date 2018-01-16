@@ -92,6 +92,7 @@
   </build>
   <modules>
     <module>gwtbookcode-client</module>
+    <module>gwtbookcode-shared</module>
     <module>gwtbookcode-server</module>
   </modules>
 </project>
