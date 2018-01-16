@@ -3,4 +3,14 @@
   xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
   version="2.5">
 
+	<!-- Servlets -->
+  <servlet>
+    <servlet-name>calcServlet</servlet-name>
+    <servlet-class>com.github.yukihane.gwtbook.GreetingServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>calcServlet</servlet-name>
+    <url-pattern>/gwtbookapp/calc</url-pattern>
+  </servlet-mapping>
 </web-app>
