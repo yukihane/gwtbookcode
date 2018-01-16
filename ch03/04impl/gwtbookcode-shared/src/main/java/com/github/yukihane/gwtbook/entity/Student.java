@@ -1,6 +1,9 @@
 package com.github.yukihane.gwtbook.entity;
 
-public class Student {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Student implements Serializable {
 
     /** 名前 */
     private String name;
