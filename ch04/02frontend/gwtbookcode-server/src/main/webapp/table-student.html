@@ -63,6 +63,9 @@
       addRow(e) {
         this.push('students', {name:"", height: "", room:"A"});
       }
+      getStudents() {
+        return this.students;
+      }
     }
     customElements.define(TableStudent.is, TableStudent);
   </script>
