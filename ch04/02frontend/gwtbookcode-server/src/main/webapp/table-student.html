@@ -26,10 +26,6 @@
         </template>
       </table>
     </div>
-    <div>
-      <button type="button" on-click="addRow">追加</button>
-      <button type="button" on-click="sendToServer">送信</button>
-    </div>
   </template>
 
   <script>
@@ -65,14 +61,7 @@
         return value === room;
       }
       addRow(e) {
-        console.log("addRow");
         this.push('students', {name:"", height: "", room:"A"});
-      }
-      sendToServer(e){
-        console.log("sendToServer");
-        for(let s of this.students) {
-          console.log(s.name + ", " + s.room);
-        }
       }
     }
     customElements.define(TableStudent.is, TableStudent);
