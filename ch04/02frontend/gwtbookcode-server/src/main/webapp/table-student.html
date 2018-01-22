@@ -1,0 +1,81 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/polymer/lib/elements/dom-repeat.html">
+
+<dom-module id="table-student">
+
+  <template>
+
+    <style>
+    </style>
+
+    <div>
+      <table>
+        <tr><th>名前</th><th>身長</th><th>クラス</th></tr>
+        <template is="dom-repeat" items="{{students}}">
+          <tr>
+            <td><input type="text" name="name" value="{{item.name::input}}"></td>
+            <td><input type="text" name="height" value="{{item.height::input}}"></td>
+            <td>
+              <select name="room" value="{{item.room::input}}">
+                <template is="dom-repeat" items="{{rooms}}" as="room">
+                    <option value="[[room.value]]" selected$="[[selected(room.value, item.room)]]">[[room.text]]</option>
+                </template>
+              </select>
+            </td>
+          </tr>
+        </template>
+      </table>
+    </div>
+    <div>
+      <button type="button" on-click="addRow">追加</button>
+      <button type="button" on-click="sendToServer">送信</button>
+    </div>
+  </template>
+
+  <script>
+    class TableStudent extends Polymer.Element {
+      static get is() {
+        return 'table-student';
+      }
+      static get properties() {
+        return {
+          students: {
+            type: Array,
+            value: function() {
+              return [{name:"初期 太郎", height: "170", room:"A"}];
+            }
+          },
+          rooms: {
+            type: Array,
+            readOnly: true,
+            value: function() {
+              return[
+                {value: "A", text:"A組"},
+                {value: "B", text:"B組"},
+                {value: "C", text:"C組"},
+              ];
+            }
+          }
+        }
+      }
+      constructor() {
+        super();
+      }
+      selected(value, room) {
+        return value === room;
+      }
+      addRow(e) {
+        console.log("addRow");
+        this.push('students', {name:"", height: "", room:"A"});
+      }
+      sendToServer(e){
+        console.log("sendToServer");
+        for(let s of this.students) {
+          console.log(s.name + ", " + s.room);
+        }
+      }
+    }
+    customElements.define(TableStudent.is, TableStudent);
+  </script>
+
+</dom-module>
