@@ -4,21 +4,24 @@ import com.github.yukihane.gwtbook.entity.CalcRequestData;
 import com.github.yukihane.gwtbook.entity.CalcResult;
 import com.github.yukihane.gwtbook.entity.Room;
 import com.github.yukihane.gwtbook.entity.Student;
-import com.github.yukihane.gwtbook.service.CalcService;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import javax.servlet.annotation.WebServlet;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-@SuppressWarnings("serial")
-@WebServlet("/gwtbookapp/calc")
-public class CalcServiceImpl extends RemoteServiceServlet implements CalcService {
+@Path("calc")
+public class CalcServiceImpl {
 
     private static final Student NULL_OBJ = new Student();
 
-    @Override
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public CalcResult calculate(final CalcRequestData req) {
         System.out.println("Called: calculate");
 
