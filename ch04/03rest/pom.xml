@@ -37,6 +37,10 @@
         <inherited>false</inherited>
         <configuration>
           <launcherDir>${project.build.directory}/gwt/launcherDir</launcherDir>
+          <jvmArgs>
+            <arg>--add-modules</arg>
+            <arg>java.se.ee</arg>
+          </jvmArgs>
         </configuration>
       </plugin>
     </plugins>
