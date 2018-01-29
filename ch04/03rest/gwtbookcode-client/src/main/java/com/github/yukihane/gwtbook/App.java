@@ -39,10 +39,10 @@ public class App implements EntryPoint {
         GWT.log("Hello, GWT!");
         Defaults.setServiceRoot("rest");
 
-        final TableStudent table = (TableStudent) DomGlobal.document.body.getElementsByTagName("table-student").item(0);
+        final TableStudent table = getElementByTagName("table-student");
         final HTMLButtonElement addButton = getButtonElement("addButton");
         final HTMLButtonElement sendButton = getButtonElement("sendButton");
-        // final HTMLTextAreaElement result = getElementByName("result");
+        final HTMLTextAreaElement result = getElementByTagName("textarea");
 
         addButton.addEventListener("click", e -> table.addRow());
         sendButton.addEventListener("click", ev -> {
@@ -52,7 +52,7 @@ public class App implements EntryPoint {
         this.table = table;
         this.addButton = addButton;
         this.sendButton = sendButton;
-        // this.result = result;
+        this.result = result;
     }
 
     private void sendToServer(final JsStudent[] students) {
@@ -71,7 +71,8 @@ public class App implements EntryPoint {
         service.calc(data, new MethodCallback<CalcResult>() {
             @Override
             public void onSuccess(final Method method, final CalcResult response) {
-                final String text = createResultPanel(response);
+                GWT.log("onSuccess: " + response);
+                result.value = createResultPanel(response);
             }
 
             @Override
